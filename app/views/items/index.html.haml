@@ -1,0 +1,8 @@
+- items = ["Test 1", "Test 2", "Test 3"]
+.heading
+  %h1= "To-Do List"
+%ul.list-group
+  - items.each do |item|
+    %li.list-group-item
+      = check_box_tag 'checkbox_' + item, item, id: 'checkbox_' + item
+      %label{for: 'checkbox_' + item}= item

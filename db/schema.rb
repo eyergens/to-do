@@ -12,10 +12,10 @@
 
 ActiveRecord::Schema[8.0].define(version: 2025_09_16_165455) do
   create_table "items", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
     t.string "description"
-    t.boolean "status"
-    t.integer "order"
+    t.boolean "status", default: false, null: false
+    t.integer "order", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
