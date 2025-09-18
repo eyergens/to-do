@@ -18,11 +18,11 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 gem 'bootstrap'
-gem 'dartsass-sprockets'
-gem 'haml'
-gem 'haml-rails'
-gem 'html2haml'
+gem 'bootstrap-icons-helper'
+gem 'dartsass-rails'
+gem 'hamlit'
 gem 'jquery-rails'
+gem 'sassc-rails'
 gem 'sprockets-rails'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]

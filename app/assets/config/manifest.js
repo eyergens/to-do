@@ -2,3 +2,9 @@
 //= link application.js
 //= link controllers/application.js
 //= link controllers/index.js
+//= link controllers/items_controller.js
+//= link_directory ../stylesheets/ .scss
+//= link_directory ../stylesheets/ .css
+//= link_directory ../stylesheets/application .scss
+//= link application.css
+//= link jquery.min.js

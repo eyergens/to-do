@@ -1,0 +1,22 @@
+
+AllCops:
+  Exclude:
+    - 'config/schema.rb'
+    - 'config/environments/*'
+    - 'db/**/*'
+    - 'vendor/bundle/**/*'
+    - 'app/controllers/admin/reports/agents_controller.rb'
+  NewCops: enable
+  SuggestExtensions: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
