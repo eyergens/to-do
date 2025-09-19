@@ -9,3 +9,5 @@ import "bootstrap"
 
 import "controllers"
 import './application/items.js'
+
+import "sortablejs"

@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :items
 
   post 'items/:id/toggle', to: 'items#toggle'
+  post 'items/reorder', to: 'items#reorder'
 end

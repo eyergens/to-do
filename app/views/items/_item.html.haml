@@ -1,4 +1,4 @@
-= turbo_frame_tag item.id, data: {order: item.order}, class: ['task-item', ('completed' if item.status)].compact.join(" ") do
+= turbo_frame_tag item.id, data: {order: item.order, id: item.id}, class: ['task-item', ('completed' if item.status)].compact.join(" ") do
   %li.card.my-2
     .list-group-item.d-flex.justify-content-between.item_shadow.align-items-center
       %div.d-flex.w-75

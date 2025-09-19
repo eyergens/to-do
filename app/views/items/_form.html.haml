@@ -6,6 +6,6 @@
         = form.text_field :description, placeholder: 'Description', class: ('bg-body-secondary' if item.status)
       %div
         = form.button type: 'submit', class: 'border-0 bg-transparent' do
-          = bootstrap_icon 'floppy', height: 25, width: 25, fill: '#74a5b3'
+          = bootstrap_icon 'floppy-fill', height: 25, width: 25, fill: '#74a5b3'
         = link_to items_path, data: {turbo_frame: "items"} do
           = bootstrap_icon 'x-lg', height: 25, width: 25, fill: '#74a5b3'

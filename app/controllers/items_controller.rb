@@ -15,17 +15,12 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    @item.order = Item.maximum(:order) + 1
+    update_order(@item, (Item.maximum(:order) || 0) + 1)
 
     respond_to do |format|
       if @item.save
-        format.turbo_stream {
-          render turbo_stream: [
-            turbo_stream.append('active-list', partial: 'items/item', locals: { item: @item }),
-            turbo_stream.replace('new_item', partial: 'items/new_item_link')
-          ]
-        }
-        format.html { redirect_to items_url, notice: 'Successful' }
+        handle_new_turbo_success(format)
+        handle_success(format)
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -40,7 +35,7 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to items_url, notice: 'Successful' }
+        handle_success(format)
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -52,14 +47,25 @@ class ItemsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream { render turbo_stream: turbo_stream.remove(@item.id) }
-      format.html { redirect_to items_url, notice: 'Task was successfully deleted.' }
+      handle_success(format)
     end
   end
 
   def toggle
     @item = Item.find(params[:id])
     updated = @item.update(status: params[:status])
-    render json: { status: updated, message: @item.updated_at.strftime('%b %d, %Y %I:%M%p') }
+    render json: { status: updated, message: "Updated: #{helpers.time_ago_in_words(@item.updated_at)} ago" }
+  end
+
+  def reorder
+    new_order = params[:new_order]
+    new_order.each_with_index do |element, index|
+      item = Item.find(element)
+      update_order(item, index)
+      item.save
+    end
+
+    render json: { status: true, message: 'Successful' }
   end
 
   def item_params
@@ -68,5 +74,22 @@ class ItemsController < ApplicationController
 
   def fetch_current_item
     @item = Item.find(params[:id])
+  end
+
+  def handle_new_turbo_success(format)
+    format.turbo_stream do
+      render turbo_stream: [
+        turbo_stream.append('active-list', partial: 'items/item', locals: { item: @item }),
+        turbo_stream.replace('new_item', partial: 'items/new_item_link')
+      ]
+    end
+  end
+
+  def handle_success(format)
+    format.html { redirect_to items_url, notice: 'Successful' }
+  end
+
+  def update_order(item, order)
+    item.order = order
   end
 end

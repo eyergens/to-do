@@ -61,9 +61,15 @@ input[type='text'] {
   border-color: $main_color;
 }
 
-.completed .list-group-item {
-  --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-secondary-bg-rgb), var(--bs-bg-opacity));
+.completed  {
+  .list-group-item {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-secondary-bg-rgb), var(--bs-bg-opacity));
+  }
+
+  .bi-list {
+    display: none;
+  }
 }
 
 .field_with_errors {
@@ -78,4 +84,8 @@ input[type='text'] {
 span {
   font-size: .75em;
   line-height: .75em;
+}
+
+.sortable-ghost {
+  opacity: 0;
 }
