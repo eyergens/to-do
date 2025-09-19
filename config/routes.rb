@@ -2,8 +2,12 @@
 
 Rails.application.routes.draw do
   root 'items#index'
-  resources :items
-
-  post 'items/:id/toggle', to: 'items#toggle'
-  post 'items/reorder', to: 'items#reorder'
+  resources :items do
+    member do
+      patch :toggle
+    end
+    collection do
+      post :reorder
+    end
+  end
 end

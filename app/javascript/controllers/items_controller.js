@@ -8,7 +8,7 @@ export default class extends Controller {
       const csrfToken = document.querySelector("[name='csrf-token']").content;
       let newStatus = e.target.checked;
       fetch(`/items/${id}/toggle`, {
-          method: 'POST',
+          method: 'PATCH',
           mode: 'cors',
           cache: 'no-cache',
           credentials: 'same-origin',
