@@ -10,7 +10,7 @@
           %p.mb-0= item.description
           %span.mb-0{id: "updated_time_#{item.id.to_s}"}= "Updated: #{time_ago_in_words(item.updated_at)} ago"
       %div
-        = bootstrap_icon 'trash-fill', height: 25, width: 25, fill: 'red', class: 'delete', data: {id: "delete_popup_#{item.id.to_s}"}
+        = bootstrap_icon 'trash3', height: 25, width: 25, fill: 'red', class: 'delete', data: {id: "delete_popup_#{item.id.to_s}"}
         = bootstrap_icon 'list', height: 25, width: 25
   .modal.fade{tabindex: '10000', role: 'dialog', id: "delete_popup_#{item.id.to_s}"}
     .modal-dialog.modal-dialog-centered{role: 'dialog'}

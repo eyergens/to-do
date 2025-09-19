@@ -30,7 +30,7 @@ input[type='checkbox'] + label::before {
   content: '';
   position: absolute;
   left: 10px;
-  top: 8px;
+  top: 10px;
   width: 25px;
   height: 25px;
   border: 2px solid #ccc;
@@ -49,7 +49,7 @@ input[type='checkbox']:checked + label::after {
   content: '\2713';
   position: absolute;
   left: 15px;
-  top: 8px;
+  top: 10px;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -82,10 +82,22 @@ input[type='text'] {
 }
 
 span {
-  font-size: .75em;
-  line-height: .75em;
+  font-size: .65em;
+  line-height: .65em;
 }
 
 .sortable-ghost {
   opacity: 0;
+}
+
+#new_item_link {
+  position: absolute;
+  background-color: white;
+  z-index: 1;
+  top: -24px;
+  right: 25px;
+}
+
+.container {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
 }

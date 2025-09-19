@@ -1,3 +1,3 @@
 = turbo_frame_tag 'new_item' do
-  = link_to new_item_path(@item), class: 'text-reset text-decoration-none' do
-    = bootstrap_icon 'plus', height: 45, width: 45
+  = link_to new_item_path(@item), class: 'text-reset text-decoration-none', id: 'new_item_link' do
+    = bootstrap_icon 'plus-circle-fill', height: 45, width: 45, fill: '#74a5b3'
