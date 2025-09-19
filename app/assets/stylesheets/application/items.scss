@@ -49,7 +49,7 @@ input[type='checkbox']:checked + label::after {
   content: '\2713';
   position: absolute;
   left: 15px;
-  top: 10px;
+  top: 8px;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -61,11 +61,21 @@ input[type='text'] {
   border-color: $main_color;
 }
 
-.completed {
-  opacity: .75;
+.completed .list-group-item {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-secondary-bg-rgb), var(--bs-bg-opacity));
+}
 
-  .list-group-item {
-    --bs-bg-opacity: 1;
-    background-color: rgba(var(--bs-secondary-bg-rgb), var(--bs-bg-opacity));
+.field_with_errors {
+  width: 100%;
+
+  input {
+    width: 100%;
+    border-color: red;
   }
+}
+
+span {
+  font-size: .75em;
+  line-height: .75em;
 }

@@ -20,10 +20,13 @@ export default class extends Controller {
       })
         .then(response => response.json())
         .then(data => {
-        if (data.message === true) {
+        if (data.status === true) {
           let itemElem = document.getElementById(id);
+          let updated_time = document.getElementById('updated_time_' + id);
+          updated_time.innerHTML = data.message;
 
           if (newStatus) {
+            // Insert element to the top of the completed list
             itemElem.classList.add("completed");
             document.getElementById("completed-list").prepend(itemElem);
           } else {
@@ -32,6 +35,7 @@ export default class extends Controller {
             const activeContainer = document.getElementById("active-list");
             const itemOrder = parseFloat(itemElem.dataset.order);
 
+            // Insert the element into the active list based on its order
             let inserted = false;
             const children = Array.from(activeContainer.querySelectorAll('.task-item'));
             for (let child of children) {
@@ -42,6 +46,7 @@ export default class extends Controller {
                 break;
               }
             }
+            // Insert the element to the bottom of the active list
             if (!inserted) {
               activeContainer.appendChild(itemElem);
             }

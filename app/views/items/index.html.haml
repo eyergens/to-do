@@ -3,20 +3,8 @@
 .container
   %ul.list-group
     %div{data: {controller: 'items'}}
-      = turbo_frame_tag 'new_item' do
-        = link_to new_item_path(@item), class: 'text-reset text-decoration-none' do
-          = bootstrap_icon 'plus', height: 45, width: 45
+      = render 'new_item_link'
       #active-list
-        - @active_items.each do |item|
-          = render 'task_item', item: item
+        = render @active_items
       #completed-list
-        - @completed_items.each do |item|
-          = render 'task_item', item: item
-.modal.fade#delete_popup{tabindex: '-1', role: 'dialog'}
-  .modal-dialog.modal-dialog-centered{role: 'dialog'}
-    .modal-content
-      .modal-header.text-center
-        %h5.modal-title= 'Are you sure you want to delete this item?'
-      .modal-footer
-        %button.btn.btn-secondary{type: 'button', data: {bs: {dismiss: 'modal'}}}= 'No'
-        %button.btn.btn-danger{type: 'button'}= 'Yes'
+        = render @completed_items

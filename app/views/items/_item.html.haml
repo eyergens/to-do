@@ -1,0 +1,22 @@
+= turbo_frame_tag item.id, data: {order: item.order}, class: ['task-item', ('completed' if item.status)].compact.join(" ") do
+  %li.card.my-2
+    .list-group-item.d-flex.justify-content-between.item_shadow.align-items-center
+      %div.d-flex.w-75
+        .checkbox_div
+          = check_box_tag "checkbox_#{item.id.to_s}", item.title, item.status, id: "checkbox_#{item.id.to_s}", data: {action: 'items#toggle', id: item.id}
+          %label#sudo_checkbox{for: "checkbox_#{item.id.to_s}"}
+        = link_to edit_item_path(item), class: 'text-reset text-decoration-none w-75' do
+          %label.item_title= item.title
+          %p.mb-0= item.description
+          %span.mb-0{id: "updated_time_#{item.id.to_s}"}= "Updated: #{time_ago_in_words(item.updated_at)} ago"
+      %div
+        = bootstrap_icon 'trash-fill', height: 25, width: 25, fill: 'red', class: 'delete', data: {id: "delete_popup_#{item.id.to_s}"}
+        = bootstrap_icon 'list', height: 25, width: 25
+  .modal.fade{tabindex: '10000', role: 'dialog', id: "delete_popup_#{item.id.to_s}"}
+    .modal-dialog.modal-dialog-centered{role: 'dialog'}
+      .modal-content
+        .modal-header.text-center
+          %h5.modal-title= 'Are you sure you want to delete this item?'
+        .modal-footer
+          %button.btn.btn-secondary{type: 'button', data: {bs: {dismiss: 'modal'}}}= 'No'
+          = button_to 'Yes', item_path(item), method: :delete, data: {action: "items#destroy"}, class: 'btn btn-danger confirm-delete'
