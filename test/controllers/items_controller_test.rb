@@ -20,18 +20,29 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should create item and redirect for valid creation' do
+  test 'should create item and update turbo stream for valid creation' do
     assert_difference('Item.count', 1) do
-      post items_url, params: { item: { title: 'New Item', description: 'New description' } }
+      post items_url, params: { item: { title: 'New Item', description: 'New description' } },
+                      headers: { 'ACCEPT' => 'text/vnd.turbo-stream.html' }
     end
 
-    assert_redirected_to items_url
-    assert_equal 'Successful', flash[:notice]
+    assert_turbo_stream action: :append, target: 'active_list' do
+      assert_select 'label', text: 'New Item'
+    end
+
+    assert_response :success
+    assert_equal 'text/vnd.turbo-stream.html; charset=utf-8', @response.content_type
+
+    # Check that the Turbo Stream response contains the append operation for the 'active_list'
+    assert_includes @response.body, 'turbo-stream'
+    assert_includes @response.body, 'target="active_list"'
+    # Check that it includes the replace operation for the 'new_item'
+    assert_includes @response.body, 'target="new_item"'
   end
 
   test 'should render new for invalid item creation' do
     post items_url, params: { item: { title: '', description: 'No title' } }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test 'should get edit' do
@@ -51,7 +62,7 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should render edit form for invalid update' do
     patch item_url(@item), params: { item: { title: '', description: 'Updated Description' } }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
   end
 
   test 'should destroy item and redirect to index' do
@@ -69,7 +80,7 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
 
     json_response = JSON.parse(response.body)
     assert(json_response['status'], 'Response status should be true')
-    assert_match(/Updated: .* ago/, json_response['message'], 'Response message should include a time phrase')
+    assert_match(/Updated: .* ago/, json_response['message'], 'Response message should include a last updated time')
   end
 
   test 'should reorder items and return valid JSON' do

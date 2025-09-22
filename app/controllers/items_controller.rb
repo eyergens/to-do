@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
         handle_new_turbo_success(format)
         handle_success(format)
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_content }
       end
     end
   end
@@ -37,7 +37,7 @@ class ItemsController < ApplicationController
       if @item.save
         handle_success(format)
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_content }
       end
     end
   end
@@ -68,6 +68,8 @@ class ItemsController < ApplicationController
     render json: { status: true, message: 'Successful' }
   end
 
+  private
+
   def item_params
     params.require(:item).permit(:title, :description)
   end
@@ -80,7 +82,7 @@ class ItemsController < ApplicationController
     format.turbo_stream do
       render turbo_stream: [
         # Add the new item to the active list section
-        turbo_stream.append('active-list', partial: 'items/item', locals: { item: @item }),
+        turbo_stream.append('active_list', partial: 'items/item', locals: { item: @item }),
         # Change the new item box back to the add button
         turbo_stream.replace('new_item', partial: 'items/new_item_link')
       ]

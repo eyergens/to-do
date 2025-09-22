@@ -25,14 +25,20 @@ export default class extends Controller {
           let updated_time = document.getElementById('updated_time_' + id);
           updated_time.innerHTML = data.message;
 
+          let url = new URL(window.location.href)
+
           if (newStatus) {
-            // Insert element to the top of the completed list
-            itemElem.classList.add("completed");
-            document.getElementById("completed-list").prepend(itemElem);
+            if (url.searchParams.has('show_completed')) {
+              // Insert element to the top of the completed list
+              itemElem.classList.add("completed");
+              document.getElementById("completed_list").prepend(itemElem);
+            } else {
+              itemElem.remove();
+            }
           } else {
             itemElem.classList.remove("completed");
 
-            const activeContainer = document.getElementById("active-list");
+            const activeContainer = document.getElementById("active_list");
             const itemOrder = parseFloat(itemElem.dataset.order);
 
             // Insert the element into the active list based on its order
@@ -46,8 +52,9 @@ export default class extends Controller {
                 break;
               }
             }
-            // Insert the element to the bottom of the active list
+            
             if (!inserted) {
+              // Insert the element to the bottom of the active list
               activeContainer.appendChild(itemElem);
             }
           }

@@ -9,7 +9,7 @@ $(function() {
     $('.modal').modal('hide');
   });
 
-  let sortable = new Sortable(document.getElementById('active-list'), {handle: '.bi-list', forceFallback: true, onEnd: function(evt) {
+  let sortable = new Sortable(document.getElementById('active_list'), {handle: '.bi-list', forceFallback: true, onEnd: function(evt) {
     fetch('/items/reorder', {
         method: 'POST',
         mode: 'cors',
