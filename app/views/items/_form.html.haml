@@ -2,7 +2,7 @@
   %li.card.my-2
     .list-group-item.d-flex.justify-content-between.item_shadow.align-items-center{:class => ('bg-body-secondary' if item.status)}
       .d-grid.w-75
-        = form.text_field :title, placeholder: 'Title', class: 'mb-1 ' + (item.status ? 'bg-body-secondary' : '')
+        = form.text_field :title, placeholder: 'Title', class: ['mb-1', ('bg-body-secondary' if item.status)].compact.join(" ")
         = form.text_field :description, placeholder: 'Description', class: ('bg-body-secondary' if item.status)
       %div
         = form.button type: 'submit', class: 'border-0 bg-transparent' do

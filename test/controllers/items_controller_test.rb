@@ -83,7 +83,6 @@ class ItemsControllerTest < ActionDispatch::IntegrationTest
     assert(json_response['status'], 'Reorder should return a successful status')
     assert_equal 'Successful', json_response['message']
 
-    # Verify that order values have been updated (second_item order = 0 and @item order = 1)
     second_item.reload
     @item.reload
     assert_equal 0, second_item.order

@@ -79,7 +79,9 @@ class ItemsController < ApplicationController
   def handle_new_turbo_success(format)
     format.turbo_stream do
       render turbo_stream: [
+        # Add the new item to the active list section
         turbo_stream.append('active-list', partial: 'items/item', locals: { item: @item }),
+        # Change the new item box back to the add button
         turbo_stream.replace('new_item', partial: 'items/new_item_link')
       ]
     end
