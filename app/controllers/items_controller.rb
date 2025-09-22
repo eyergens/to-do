@@ -5,8 +5,8 @@ class ItemsController < ApplicationController
   before_action :fetch_current_item, only: %i[edit update destroy]
 
   def index
-    @active_items = Item.where(status: false).order(:order)
-    @completed_items = Item.where(status: true).order(updated_at: :desc)
+    @pagy, @items = pagy(Item.show_completed(params[:show_completed] || 0).order_by_status_and_order,
+                         items: params[:limit] || 10)
   end
 
   def new

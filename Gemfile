@@ -22,6 +22,7 @@ gem 'bootstrap-icons-helper'
 gem 'dartsass-rails'
 gem 'hamlit'
 gem 'jquery-rails'
+gem 'pagy'
 gem 'sassc-rails'
 gem 'sprockets-rails'
 

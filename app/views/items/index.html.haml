@@ -1,10 +1,25 @@
+- active_items = @items.reject(&:status?)
+- completed_items = @items.select(&:status?)
+
 .heading.text-center.mt-3
   %h1= "To-Do List"
 .container.card.p-4
   %ul.list-group
+    = form_with url: root_path, method: :get, local: true, class: 'form-check form-switch' do |form|
+      = check_box_tag 'show_completed', 1, params[:show_completed], id: 'show_completed', class: 'form-check-input', onchange: 'this.form.submit()'
+      %label{for: 'show_completed', class: 'form-check-label'}= 'Show Completed'
+      - params.except(:show_completed, :controller, :action).each do |key, value|
+        = hidden_field_tag key, value # Keep all other params in the URL
     %div{data: {controller: 'items'}}
       = render 'new_item_link'
       #active-list
-        = render @active_items
+        = render active_items
       #completed-list
-        = render @completed_items
+        = render completed_items
+      .d-flex.align-items-center.gap-3
+        != pagy_bootstrap_nav(@pagy)
+        = form_with url: root_path, method: :get, local: true do |form|
+          = form.label :limit, "Items per page:"
+          = form.select :limit, options_for_select([10, 20, 50, 100], params[:limit] || 10), {}, { onchange: 'this.form.submit()' }
+          - params.except(:limit, :controller, :action).each do |key, value|
+            = hidden_field_tag key, value # Keep all other params in the URL

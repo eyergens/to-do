@@ -26,7 +26,7 @@ input[type='checkbox'] {
 }
 
 /* Create the custom checkbox circle */
-input[type='checkbox'] + label::before {
+input[type='checkbox']:not(.form-check-input) + label::before {
   content: '';
   position: absolute;
   left: 10px;
@@ -40,12 +40,12 @@ input[type='checkbox'] + label::before {
 }
 
 /* Style the checkmark when checked */
-input[type='checkbox']:checked + label::before {
+input[type='checkbox']:checked:not(.form-check-input) + label::before {
   background-color: $main_color; 
   border-color: $main_color;
 }
 
-input[type='checkbox']:checked + label::after {
+input[type='checkbox']:checked:not(.form-check-input) + label::after {
   content: '\2713';
   position: absolute;
   left: 15px;
@@ -100,4 +100,14 @@ span {
 
 .container {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 20px 30px;
+}
+
+.form-check-input:checked {
+    background-color: $main_color;
+    border-color: $main_color;
+}
+
+.form-check-input:focus {
+  border-color: $main_color;
+  box-shadow: 0 0 0 0.2rem rgba(116, 165, 179, 0.25);
 }
