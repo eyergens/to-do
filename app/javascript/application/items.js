@@ -1,4 +1,5 @@
-import Sortable from "sortablejs"
+import Sortable from "sortablejs";
+import { getCSRFToken } from "../global";
 
 $(function() {
   $('body').on('click', '.delete', function() {
@@ -17,7 +18,7 @@ $(function() {
         credentials: 'same-origin',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-Token': document.querySelector("[name='csrf-token']").content
+            'X-CSRF-Token': getCSRFToken()
         },
         body: JSON.stringify({ new_order: sortable.toArray() })
     })

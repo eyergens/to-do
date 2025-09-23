@@ -7,6 +7,7 @@ import "@hotwired/turbo-rails"
 import "jquery"
 import "bootstrap"
 
+import "./global.js"
 import "controllers"
 import './application/items.js'
 
